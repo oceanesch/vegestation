@@ -1,12 +1,13 @@
 import styles from './app.module.css';
+import { Button } from 'antd';
+import { Fragment } from 'react'
 
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
 
 export function App() {
-  return (
-    <div>Coucou Océane</div>
-  )
+  return <Fragment>
+  <div>Coucou Océane</div>;
+  <Button type="default">Antd Btn</Button>
+  </Fragment>
 }
 
 export default App;

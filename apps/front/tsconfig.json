@@ -1,15 +1,15 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
     "allowJs": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true
   },
+  "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
   "references": [

@@ -1,12 +1,13 @@
-import styles from './app.module.css';
-
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
+import { Fragment } from 'react';
+import Button from '@mui/material/Button';
 
 export function App() {
   return (
-    <div>Coucou Océane</div>
-  )
+    <Fragment>
+      <div>Coucou Océane</div>
+      <Button variant="contained">Ze suis la plus forte</Button>
+    </Fragment>
+  );
 }
 
 export default App;

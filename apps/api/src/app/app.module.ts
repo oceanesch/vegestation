@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@vegestation/api-database';
-import { UserController } from './user.controller';
+import { UserModule } from './user';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [UserController],
+  imports: [UserModule],
 })
 export class AppModule {}

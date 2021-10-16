@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["nestjs", "nrwl", "vegestation"]
+  "cSpell.words": [
+    "dtos",
+    "nestjs",
+    "nrwl",
+    "upsert",
+    "vegestation"
+  ]
 }

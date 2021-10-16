@@ -53,7 +53,6 @@ export class UserController {
     const formattedParams = this.userRestDtoService.formatCountDto(queryDto);
     return this.userService.count(formattedParams);
   }
-  // balbuiels
   @Patch(':id')
   update(
     @Param() paramsDto: UserUpdateParamsDto,

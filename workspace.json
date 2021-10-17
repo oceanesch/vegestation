@@ -1,33 +1,59 @@
 {
-  "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "defaultProject": "front",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true,
+        "linter": "eslint",
+        "style": "css"
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "linter": "eslint",
+        "style": "css"
+      }
+    }
+  },
   "projects": {
     "api": {
+      "projectType": "application",
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
-      "projectType": "application",
       "targets": {
         "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
-          },
           "configurations": {
             "production": {
-              "optimization": true,
               "extractLicenses": true,
-              "inspect": false,
               "fileReplacements": [
                 {
                   "replace": "apps/api/src/environments/environment.ts",
                   "with": "apps/api/src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "inspect": false,
+              "optimization": true
             }
-          }
+          },
+          "executor": "@nrwl/node:build",
+          "options": {
+            "main": "apps/api/src/main.ts",
+            "outputPath": "dist/apps/api",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "tsPlugins": ["@nestjs/swagger/plugin"]
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "serve": {
           "executor": "@nrwl/node:execute",
@@ -35,144 +61,168 @@
             "buildTarget": "api:build"
           }
         },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
-          }
-        },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
+          },
+          "outputs": ["coverage/apps/api"]
+        }
+      }
+    },
+    "api-database": {
+      "projectType": "library",
+      "root": "libs/api/database",
+      "sourceRoot": "libs/api/database/src",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "assets": ["libs/api/database/*.md"],
+            "main": "libs/api/database/src/index.ts",
+            "outputPath": "dist/libs/api/database",
+            "packageJson": "libs/api/database/package.json",
+            "tsConfig": "libs/api/database/tsconfig.lib.json"
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "generate": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "npx prisma format",
+                "forwardAllArgs": false
+              },
+              {
+                "command": "npx prisma generate",
+                "forwardAllArgs": false
+              }
+            ],
+            "cwd": "libs/api/database",
+            "parallel": false
           }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/database/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/database/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/api/database"]
         }
       }
     },
     "front": {
+      "projectType": "application",
       "root": "apps/front",
       "sourceRoot": "apps/front/src",
-      "projectType": "application",
       "targets": {
         "build": {
-          "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/front",
-            "index": "apps/front/src/index.html",
-            "baseHref": "/",
-            "main": "apps/front/src/main.tsx",
-            "polyfills": "apps/front/src/polyfills.ts",
-            "tsConfig": "apps/front/tsconfig.app.json",
-            "assets": ["apps/front/src/favicon.ico", "apps/front/src/assets"],
-            "styles": ["apps/front/src/styles.css"],
-            "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
-          },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "maximumError": "1mb",
+                  "maximumWarning": "500kb",
+                  "type": "initial"
+                }
+              ],
+              "extractCss": true,
+              "extractLicenses": true,
               "fileReplacements": [
                 {
                   "replace": "apps/front/src/environments/environment.ts",
                   "with": "apps/front/src/environments/environment.prod.ts"
                 }
               ],
+              "namedChunks": false,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                }
-              ]
+              "vendorChunk": false
             }
-          }
+          },
+          "executor": "@nrwl/web:build",
+          "options": {
+            "assets": ["apps/front/src/favicon.ico", "apps/front/src/assets"],
+            "baseHref": "/",
+            "index": "apps/front/src/index.html",
+            "main": "apps/front/src/main.tsx",
+            "outputPath": "dist/apps/front",
+            "polyfills": "apps/front/src/polyfills.ts",
+            "scripts": [],
+            "styles": ["apps/front/src/styles.css"],
+            "tsConfig": "apps/front/tsconfig.app.json",
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/front/**/*.{ts,tsx,js,jsx}"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "serve": {
-          "executor": "@nrwl/web:dev-server",
-          "options": {
-            "buildTarget": "front:build",
-            "hmr": true
-          },
           "configurations": {
             "production": {
               "buildTarget": "front:build:production",
               "hmr": false
             }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
+          },
+          "executor": "@nrwl/web:dev-server",
           "options": {
-            "lintFilePatterns": ["apps/front/**/*.{ts,tsx,js,jsx}"]
+            "buildTarget": "front:build",
+            "hmr": true
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/front"],
           "options": {
             "jestConfig": "apps/front/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/front"]
         }
       }
     },
     "front-e2e": {
+      "projectType": "application",
       "root": "apps/front-e2e",
       "sourceRoot": "apps/front-e2e/src",
-      "projectType": "application",
       "targets": {
         "e2e": {
+          "configurations": {
+            "production": {
+              "devServerTarget": "front:serve:production"
+            }
+          },
           "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/front-e2e/cypress.json",
             "devServerTarget": "front:serve",
             "tsConfig": "apps/front-e2e/tsconfig.json"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "front:serve:production"
-            }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/front-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
       }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "css",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "css"
-      },
-      "library": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "front"
+  "version": 2
 }

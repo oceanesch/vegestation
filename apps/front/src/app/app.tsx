@@ -1,13 +1,7 @@
-import { Fragment } from 'react';
-import Button from '@mui/material/Button';
+import UserForm from '../components/UserForm';
 
 export function App() {
-  return (
-    <Fragment>
-      <div>Coucou Océane</div>
-      <Button variant="contained">Ze suis la plus forte</Button>
-    </Fragment>
-  );
+  return <UserForm />;
 }
 
 export default App;

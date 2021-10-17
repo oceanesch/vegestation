@@ -40,3 +40,5 @@ Thumbs.db
 
 # Environments
 .env
+# Custom files
+GIT_MEMO.md

@@ -9,6 +9,7 @@ In order to be able to run this project, you will need:
 
 - Nodejs 16.
 - Npm 7.
+- Docker & Docker compose
 - The nx command installed globally. You can install it with
   `npm install -g nx`.
 

@@ -1,6 +1,7 @@
 import { Fragment, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const UserForm: React.FC = () => {
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -16,24 +17,32 @@ const UserForm: React.FC = () => {
 
   return (
     <form onSubmit={submitUserFormHandler}>
-      <TextField
-        required
-        id="name"
-        label="Name"
-        variant="outlined"
-        inputRef={nameInputRef}
-      />
-      <TextField
-        required
-        id="emailAddress"
-        label="Email"
-        variant="outlined"
-        type="email"
-        inputRef={emailInputRef}
-      />
-      <Button variant="outlined" type="submit">
-        Submit
-      </Button>
+      <Stack spacing={4} justifyContent="space-around">
+        <TextField
+          autoFocus
+          margin="dense"
+          fullWidth
+          required
+          id="name"
+          label="Name"
+          variant="outlined"
+          inputRef={nameInputRef}
+        />
+        <TextField
+          required
+          fullWidth
+          autoFocus
+          margin="dense"
+          id="emailAddress"
+          label="Email"
+          variant="outlined"
+          type="email"
+          inputRef={emailInputRef}
+        />
+        <Button variant="outlined" type="submit">
+          Submit
+        </Button>
+      </Stack>
     </form>
   );
 };

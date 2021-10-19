@@ -1,6 +1,7 @@
 import UserForm from './UserForm';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
 
 const SignInModal: React.FC<{ open: boolean; onClose: () => void }> = (
   props,
@@ -10,9 +11,17 @@ const SignInModal: React.FC<{ open: boolean; onClose: () => void }> = (
   };
 
   return (
-    <Dialog onClose={closeModalHandler} open={props.open}>
+    <Dialog
+      onClose={closeModalHandler}
+      maxWidth='sm'
+      fullWidth
+      open={props.open}
+      sx={{alignItems: 'center'}}
+    >
       <DialogTitle>Create an account</DialogTitle>
-      <UserForm />
+      <DialogContent>
+        <UserForm />
+      </DialogContent>
     </Dialog>
   );
 };

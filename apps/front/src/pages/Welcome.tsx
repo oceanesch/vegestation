@@ -1,5 +1,7 @@
-const Welcome = () => {
-    return <h1>WELCOME PAGE</h1>
-}
+import Layout from '../components/Layout/Layout';
 
-export default Welcome
+const Welcome = () => {
+  return <Layout />;
+};
+
+export default Welcome;

@@ -15,29 +15,26 @@ const UserForm: React.FC = () => {
   };
 
   return (
-    <Fragment>
-      <h1>USER FORM</h1>
-      <form onSubmit={submitUserFormHandler}>
-        <TextField
-          required
-          id="name"
-          label="Name"
-          variant="outlined"
-          inputRef={nameInputRef}
-        />
-        <TextField
-          required
-          id="emailAddress"
-          label="Email"
-          variant="outlined"
-          type="email"
-          inputRef={emailInputRef}
-        />
-        <Button variant="outlined" type="submit">
-          Submit
-        </Button>
-      </form>
-    </Fragment>
+    <form onSubmit={submitUserFormHandler}>
+      <TextField
+        required
+        id="name"
+        label="Name"
+        variant="outlined"
+        inputRef={nameInputRef}
+      />
+      <TextField
+        required
+        id="emailAddress"
+        label="Email"
+        variant="outlined"
+        type="email"
+        inputRef={emailInputRef}
+      />
+      <Button variant="outlined" type="submit">
+        Submit
+      </Button>
+    </form>
   );
 };
 

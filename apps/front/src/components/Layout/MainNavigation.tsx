@@ -5,8 +5,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider } from '@mui/material';
 import theme from '../../theme/ThemeProvider';
+import SignInModal from '../UserForm/SignInModal';
+import { useState } from 'react';
 
 const MainNavigation = () => {
+  const [openModal, setOpenModal] = useState(false);
+
+  const openSignInModalHandler = () => {
+    setOpenModal(true);
+  };
+
+  const closeSignInModalHandler = () => {
+    setOpenModal(false);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -16,12 +28,19 @@ const MainNavigation = () => {
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button variant="contained">Login</Button>
-            <Button variant="outlined" color="inherit">
+            <Button
+              variant="outlined"
+              color="inherit"
+              onClick={openSignInModalHandler}
+            >
               Sign in
             </Button>
           </Stack>
         </Toolbar>
       </AppBar>
+      {openModal && (
+        <SignInModal open={openModal} onClose={closeSignInModalHandler} />
+      )}
     </ThemeProvider>
   );
 };

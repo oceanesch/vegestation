@@ -13,6 +13,15 @@ const UserForm: React.FC = () => {
     const enteredEmail = emailInputRef.current?.value;
 
     console.log(enteredName, enteredEmail);
+
+    fetch('http://localhost:3333/api/user', {
+      method: 'POST', 
+      body: JSON.stringify({
+        name: enteredName, 
+        email: enteredEmail
+      })
+    })
+
   };
 
   return (

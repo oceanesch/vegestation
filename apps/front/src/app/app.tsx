@@ -2,10 +2,10 @@ import Welcome from '../pages/Welcome';
 import { Route } from 'react-router-dom';
 
 export function App() {
-  // fetch('http://localhost:3333/api/user')
-  //   .then(res => res.json())
-  //   .then(users => console.log('USERS', users));
 
+  fetch('/api/user')
+  .then(r => r.json()).then(user => console.log(user));
+  
   return (
     <Route path="/">
       <Welcome />

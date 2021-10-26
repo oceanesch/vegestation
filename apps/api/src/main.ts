@@ -28,13 +28,13 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
+  SwaggerModule.setup('docs', app, document);
 
   // Default port
   const port = process.env.PORT || 3333;
 
   await app.listen(port, () => {
-    Logger.log(`Listening at http://localhost: ${port}/${globalPrefix}`);
+    Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`);
   });
 }
 

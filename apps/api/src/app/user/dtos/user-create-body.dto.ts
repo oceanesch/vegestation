@@ -5,6 +5,6 @@ export class UserCreateBodyDto {
   name!: string;
 
   @IsString()
-  @IsEmail({})
+  @IsEmail()
   email!: string;
 }

@@ -14,12 +14,15 @@ const UserForm: React.FC = () => {
 
     console.log(enteredName, enteredEmail);
 
-    fetch('http://localhost:3333/api/user', {
+    fetch('api/user', {
       method: 'POST', 
       body: JSON.stringify({
         name: enteredName, 
         email: enteredEmail
-      })
+      }), 
+      headers: {
+        "content-type": "application/json"
+      }
     })
 
   };

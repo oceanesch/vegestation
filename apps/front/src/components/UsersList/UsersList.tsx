@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getUsers } from '../../app/api-client';
 
 const UsersList: React.FC = () => {
   const users__dummies: { name: string }[] = [
@@ -12,12 +13,7 @@ const UsersList: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('api/users')
-      .then((response) => {
-        if (!response.ok) throw Error('Something went wrong');
-        return response.json();
-      })
-      .then((parseData) => setUsers(parseData))
+      getUsers({name: 'Océane'}).then((parseData) => setUsers(parseData))
       .catch((error) => setHttpError(error))
       .finally(() => setIsLoading(false));
   }, [setIsLoading]);

@@ -13,7 +13,10 @@ const UsersList: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-      getUsers({name: 'Océane'}).then((parseData) => setUsers(parseData))
+    getUsers()
+      .then((users) => {
+        setUsers(users);
+      })
       .catch((error) => setHttpError(error))
       .finally(() => setIsLoading(false));
   }, [setIsLoading]);
@@ -23,14 +26,14 @@ const UsersList: React.FC = () => {
       {isLoading && <div>Loading</div>}
       {httpError && <div>Error</div>}
       {!isLoading && (
-      <div>
-        Users
-        <ul>
-          {users.map((user) => {
-            return <li>{user.name}</li>;
-          })}
-        </ul>
-      </div>
+        <div>
+          Users
+          <ul>
+            {users.map((user) => {
+              return <li>{user.name}</li>;
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );

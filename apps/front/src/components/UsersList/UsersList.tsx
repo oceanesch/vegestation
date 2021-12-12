@@ -17,7 +17,10 @@ const UsersList: React.FC = () => {
       .then((users) => {
         setUsers(users);
       })
-      .catch((error) => setHttpError(error))
+      .catch((error) => {
+        console.log('ERROR', error)
+        setHttpError(error)
+      })
       .finally(() => setIsLoading(false));
   }, [setIsLoading]);
 

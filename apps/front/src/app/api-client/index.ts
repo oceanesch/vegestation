@@ -1,5 +1,5 @@
 import { User } from '../types';
-import { Axios, AxiosResponse } from 'axios';
+import { default as axios, AxiosResponse } from 'axios';
 
 type GetUsersFilter = {
   id?: string;
@@ -7,23 +7,12 @@ type GetUsersFilter = {
   email?: string;
 };
 
-const httpClient = new Axios({ baseURL: 'http://localhost:4200/api' });
+// Instantiate axios client
+const httpClient = axios.create({
+  baseURL: 'http://localhost:4200/api',
+  headers: { 'Content-Type': 'application/json' },
+});
 
 export async function getUsers(filter: GetUsersFilter = {}) {
-  // return formatHttpResponse(Axios.get<User[]>(`api/user`, { params: filter }));
-  const response = await httpClient.get<User[]>('user');
-  console.log('result', response.data)
-  console.log('type', typeof response.data)
-  return response.data;
+  return (await httpClient.get<User[]>('user', { params: filter })).data;
 }
-
-// export function getUser(userId: string): Promise<User> {
-//   return formatHttpResponse(fetch(`api/user/${userId}`));
-// }
-
-// export function formatHttpResponse(httpResponse: Promise<axios.Response>) {
-//   return httpResponse.then((response) => {
-//     if (!response.ok) throw Error('Something went wrong');
-//     return response.json();
-//   });
-// }

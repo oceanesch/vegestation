@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUsers } from '../../app/api-client';
+import { getUsers, countUsers } from '../../app/api-client';
 
 const UsersList: React.FC = () => {
   const users__dummies: { name: string }[] = [
@@ -7,6 +7,7 @@ const UsersList: React.FC = () => {
     { name: 'Maxim Baby Louve' },
   ];
 
+  const [userCount, setUserCount] = useState(0);
   const [users, setUsers] = useState(users__dummies);
   const [httpError, setHttpError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,10 +23,24 @@ const UsersList: React.FC = () => {
         setHttpError(error)
       })
       .finally(() => setIsLoading(false));
-  }, [setIsLoading]);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    countUsers()
+      .then((userCount) => {
+        setUserCount(userCount);
+      })
+      .catch((error) => {
+        console.log('ERROR', error)
+        setHttpError(error)
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <div>
+      <h2>There is {userCount} users</h2>
       {isLoading && <div>Loading</div>}
       {httpError && <div>Error</div>}
       {!isLoading && (

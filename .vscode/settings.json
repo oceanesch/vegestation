@@ -4,6 +4,7 @@
     "nestjs",
     "nrwl",
     "upsert",
+    "upserted",
     "vegestation"
   ]
 }

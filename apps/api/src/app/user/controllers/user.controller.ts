@@ -41,6 +41,12 @@ export class UserController {
     return this.userService.findMany(formattedParams);
   }
 
+  @Get('count')
+  count(@Query() queryDto: UserCountQueryDto) {
+    const formattedParams = this.userRestDtoService.formatCountDto(queryDto);
+    return this.userService.count(formattedParams);
+  }
+
   @Get(':id')
   findUnique(@Param() paramsDto: UserFindUniqueParamsDto) {
     const formattedParams =
@@ -48,11 +54,6 @@ export class UserController {
     return this.userService.findUnique(formattedParams);
   }
 
-  @Get('count')
-  count(@Query() queryDto: UserCountQueryDto) {
-    const formattedParams = this.userRestDtoService.formatCountDto(queryDto);
-    return this.userService.count(formattedParams);
-  }
   @Patch(':id')
   update(
     @Param() paramsDto: UserUpdateParamsDto,

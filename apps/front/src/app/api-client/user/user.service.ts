@@ -1,6 +1,6 @@
-import { CreateUserBody } from '.';
+import { CreateUserBody, UpdateUserBody } from '.';
 import { httpClient } from '../http-client';
-import { GetUsersFilter, User } from './user.type';
+import { GetUsersFilter, UpsertUserBody, User } from './user.type';
 
 /**
  * Get an array of users
@@ -40,11 +40,20 @@ export async function createUser(body: CreateUserBody) {
 
 /**
  * Update one user
- * @param body - Body to create a new user
+ * @param body - Body to update a user
  * @returns the updated user
  */
-export async function updateUser(id: string, body: CreateUserBody) {
-  return (await httpClient.post<User>('user', body)).data;
+export async function updateUser(id: string, body: UpdateUserBody) {
+  return (await httpClient.patch<User>(`user/${id}`, body)).data;
+}
+
+/**
+ * Upsert one user
+ * @param body - Body to upsert a user
+ * @returns the upserted user
+ */
+export async function upsertUser(id: string, body: UpsertUserBody) {
+  return (await httpClient.put<User>(`user/${id}`, body)).data;
 }
 
 /**

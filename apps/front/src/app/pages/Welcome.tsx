@@ -1,10 +1,10 @@
 import Layout from '../components/Layout/Layout';
-import UsersList from '../components/UsersList/UsersList';
+import UsersCrud from '../components/User/UserCrud/UserCrud';
 
 const Welcome = () => {
   return (
     <Layout>
-      <UsersList />
+      <UsersCrud/>
     </Layout>
   );
 };

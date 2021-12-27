@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider } from '@mui/material';
-import theme from '../../theme/ThemeProvider';
-import SignInModal from '../UserForm/SignInModal';
+import theme from '../../../theme/ThemeProvider';
+import SignInModal from '../User/UserForm/SignInModal';
 import { useState } from 'react';
 
 const MainNavigation = () => {

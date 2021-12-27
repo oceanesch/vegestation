@@ -1,4 +1,4 @@
-import Welcome from '../pages/Welcome';
+import Welcome from './pages/Welcome';
 import { Route } from 'react-router-dom';
 
 export function App() {

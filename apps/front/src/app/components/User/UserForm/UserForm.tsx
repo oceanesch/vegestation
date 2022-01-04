@@ -4,23 +4,12 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { CreateUserBody, User } from '../../../api-client';
 
-export type UserFormPropsWithoutUser = {
-  user: undefined;
-  onFormSubmit: (user: CreateUserBody) => any;
-};
-
 export type UserFormPropsWithUser = {
-  user: User;
+  user?: User;
   onFormSubmit: (user: User) => any;
 };
 
-export type UserFormProps<T extends User | undefined> = T extends undefined
-  ? UserFormPropsWithoutUser
-  : UserFormPropsWithUser;
-
-const UserForm = <T extends User | undefined>(
-  props: UserFormProps<T>,
-): React.FunctionComponent<UserFormProps<T>> => {
+const UserForm: React.FC<UserFormPropsWithUser> = (props) => {
   const [userInputs, setUserInputs] = useState({
     name: props.user?.name || '',
     email: props.user?.email || '',
@@ -43,7 +32,7 @@ const UserForm = <T extends User | undefined>(
   const submitUserFormHandler = (event: React.FormEvent) => {
     event.preventDefault();
     console.log(userInputs);
-    props.onFormSubmit({ id: props.user?.id, ...userInputs});
+    props.onFormSubmit(userInputs as any as User);
   };
 
   return (

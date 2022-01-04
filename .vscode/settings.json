@@ -5,6 +5,7 @@
     "nrwl",
     "upsert",
     "upserted",
+    "usercrud",
     "vegestation"
   ]
 }

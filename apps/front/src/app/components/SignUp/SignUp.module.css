@@ -1,0 +1,30 @@
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 70vh;
+}
+
+.button {
+  background-color: #f39189;
+  font-family: 'Lora';
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-style: italic;
+  color: white;
+  margin: 2rem 0;
+}
+
+.button:hover,
+.button:active {
+  background-color: white;
+  border: 3px solid #f39189;
+  color: #f39189;
+}
+
+@media (min-width: 600px) {
+  .signUpForm {
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
